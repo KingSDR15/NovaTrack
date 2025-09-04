@@ -24,7 +24,7 @@ const deliveries = [
       packages: "Box",
       mode: "Air",
       product: "Pr package",
-      quantity: 1,
+      quantity: 20,
       paymentMode: "Zelle",
       totalFreight: "$219",
       carrier: "Air carrier (Nova445763222)",
@@ -41,6 +41,7 @@ const deliveries = [
     },
   }
 ];
+
 
 
 
