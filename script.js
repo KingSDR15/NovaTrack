@@ -97,7 +97,6 @@ function renderDetailPanel(s) {
       <tr><th colspan="2">Receiver Information</th></tr>
       <tr><td data-label="Name">${s.receiver.name}</td><td data-label="Phone">${s.receiver.phone || 'Not provided'}</td></tr>
       <tr><td data-label="Address" colspan="2">${s.receiver.address || ''}</td></tr>
-      <tr><td data-label="Email" colspan="2">${s.receiver.email || 'Not provided'}</td></tr>
 
       <tr><th colspan="2">Shipment Details</th></tr>
       <tr><td data-label="Weight">${s.shipment.weight}</td><td data-label="Courier">${s.shipment.courier}</td></tr>
