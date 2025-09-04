@@ -16,7 +16,7 @@ const deliveries = [
       name: "Maria Garcia",
       phone: "+1 (903) 372-8271",
       address: "3205 duke Ave Big Spring TX 79720",
-      email: ""
+    
     },
     shipment: {
       weight: "5.6 kg",
@@ -41,6 +41,7 @@ const deliveries = [
     },
   }
 ];
+
 
 
 
