@@ -3,20 +3,19 @@
 // Delivery data
 const deliveries = [
   {
-
     trackingCode: "R6555554RFE", 
-    estimatedDelivery: " September 09, 2025",
+    estimatedDelivery: "September 09, 2025",
     customs: "Custom cleared, Liubinska St, 168, Lviv, Ukraine, 79000",
     shipper: {
       name: "Laneige",
       phone: "+1 (929) 330-9752",
       address: "1407 Broadway, Suite 210, New York, NY 10018",
-      email: " uslaneigecollaboration@gmail.com"
+      email: "uslaneigecollaboration@gmail.com"
     },
     receiver: {
       name: "Maria Garcia",
       phone: "+1 (903) 372-8271",
-      address: "3205 duke Ave Big Spring TX 79720",
+      address: "3205 Duke Ave, Big Spring TX 79720",
       email: ""
     },
     shipment: {
@@ -39,13 +38,10 @@ const deliveries = [
       comments: "Item has been held by custom authority",
       agentName: "",
       shipmentType: "Freight"
-    },
+    }
+  },
 
-
-
-
-
-
+  {
     trackingCode: "F56789UJ678", 
     estimatedDelivery: "Aug 12, 2025 14:30",
     customs: "Custom cleared, 5th Avenue, New York, NY, USA, 10001",
@@ -77,15 +73,10 @@ const deliveries = [
       destination: "Kyiv",
       pickupDate: "01, Aug 2025",
       pickupTime: "07:00",
-      status: "in transit",
+      status: "In Transit",
       comments: "Package left origin facility",
       agentName: "Alice Smith",
       shipmentType: "Air"
-     },
-
+    }
+  }
 ];
-
-
-
-
-
