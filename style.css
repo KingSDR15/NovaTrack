@@ -1,4 +1,4 @@
-/* ===== Mobile-First Responsive Styles (updated) ===== */
+/* ===== Mobile-First Responsive Styles (updated, with admin icon background restored) ===== */
 :root{
   --bg: #0b0f19;
   --card: #0f1624;
@@ -10,6 +10,9 @@
   --radius: 14px;
   --gap: 12px;
   --max-content-width: 1200px;
+
+  /* Default hero image — change URL to the web-hosted image if you want */
+  --hero-image: url("assets/hero.jpg");
 }
 
 /* Reset & base */
@@ -68,14 +71,22 @@ a:hover { color:var(--accent2); }
 .brand-name{ margin:0; font-weight:700; font-size:clamp(16px,4vw,20px); letter-spacing:.2px; }
 .tagline{ color:var(--muted); font-size:.85rem; margin:0; }
 
-/* Hero */
+/* Hero (uses gradient overlay + your image) */
 .hero{
   min-height: 36vh;
   display:flex;
   align-items:center;
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
-  background-size:cover; background-position:center;
+
+  /* gradient overlay over hero image */
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)),
+    var(--hero-image);
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   padding: 18px 0;
 }
 .hero-inner{ width:100%; }
@@ -152,11 +163,11 @@ input:focus{ border-color:var(--accent); background:#131a30; box-shadow: 0 6px 1
 .footer-heading{ font-weight:700; margin-bottom:6px; }
 .footer-text{ color:var(--muted); }
 
-/* Admin icon */
+/* Admin icon — restored background exactly as requested */
 .admin-icon{
   position: fixed; bottom: 16px; right: 16px;
   width:36px; height:36px;
-  background: url('assets/hidden-icon.svg') no-repeat center/cover;
+  background: url('assets/hidden-icon.svg') no-repeat center center / cover;
   opacity:.18; cursor:pointer; border-radius:8px;
   transition: opacity .2s ease, transform .12s ease;
   z-index:9999;
@@ -224,7 +235,7 @@ input:focus{ border-color:var(--accent); background:#131a30; box-shadow: 0 6px 1
   .brand-name{ font-size:15px; }
   .hero h2{ font-size: clamp(18px,7vw,24px); }
   .dot{ width:10px; height:10px; }
-  .admin-icon{ display:none; } /* hide to avoid covering UI */
+  .admin-icon{ display:none; } /* hide to avoid covering UI on tight screens */
 }
 
 /* Table alternate row & small visual tweaks for desktop */
