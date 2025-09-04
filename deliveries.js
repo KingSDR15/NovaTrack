@@ -4,40 +4,40 @@
 const deliveries = [
   {
 
-    trackingCode: "4567898E7Y", 
-    estimatedDelivery: "Aug 09, 2025 08:00",
+    trackingCode: "R6555554RFE", 
+    estimatedDelivery: " September 09, 2025",
     customs: "Custom cleared, Liubinska St, 168, Lviv, Ukraine, 79000",
     shipper: {
-      name: "Kiko Milano",
-      phone: "+44 7832 933672",
-      address: "262-264 Regent Street, 1st Floor, London, W1B 3AQ",
-      email: "kikomilanocollaborations@gmail.com"
+      name: "Laneige",
+      phone: "+1 (929) 330-9752",
+      address: "1407 Broadway, Suite 210, New York, NY 10018",
+      email: " uslaneigecollaboration@gmail.com"
     },
     receiver: {
-      name: "Oksana Shpyta",
-      phone: "",
-      address: "Narodytska Street 21, Zhytomyr, Ukraine, 10014",
+      name: "Maria Garcia",
+      phone: "+1 (903) 372-8271",
+      address: "3205 duke Ave Big Spring TX 79720",
       email: ""
     },
     shipment: {
       weight: "5.6 kg",
-      courier: "Apexswifttransit",
+      courier: "NOVA",
       packages: "Pr package",
       mode: "Freight",
       product: "Pr package",
       quantity: 1,
-      paymentMode: "Bank transfer",
-      totalFreight: "$106",
-      carrier: "Air carrier",
-      carrierRef: "Apex445763222",
-      departureTime: "11:00",
-      origin: "London",
-      destination: "Ukraine",
-      pickupDate: "27, July 2025",
-      pickupTime: "03:00",
-      status: "pending",
+      paymentMode: "Zelle",
+      totalFreight: "$219",
+      carrier: "Air carrier (Nova445763222)",
+      carrierRef: "",
+      departureTime: "",
+      origin: "USA-USA",
+      destination: "",
+      pickupDate: "",
+      pickupTime: "September 09, 2025",
+      status: "Order Processing",
       comments: "Item has been held by custom authority",
-      agentName: "Jim Dave",
+      agentName: "",
       shipmentType: "Freight"
     },
 
@@ -220,6 +220,7 @@ const deliveries = [
     },
   }
 ];
+
 
 
 
