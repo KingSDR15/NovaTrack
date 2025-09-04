@@ -30,17 +30,18 @@ const deliveries = [
       carrier: "Air carrier (Nova445763222)",
       carrierRef: "IT55667788",
       departureTime: "",
-      origin: "",
-      destination: "",
+      origin: "USA",
+      destination: "USA",
       pickupDate: "",
       pickupTime: "",
       status: "pending",
       comments: "Package prepared for shipment",
-      agentName: "",
+      agentName: "Jason Moore",
       shipmentType: "Air"
     },
   }
 ];
+
 
 
 
