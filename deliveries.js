@@ -4,43 +4,44 @@
 const deliveries = [
   {
     trackingCode: "R6789654RFE", 
-    estimatedDelivery: "Aug 25, 2025 12:00",
-    customs: "Custom cleared, Via Roma 20, Rome, Italy, 00100",
+    estimatedDelivery: "September 09, 2025",
+    customs: "",
     shipper: {
-      name: "Italia Shipping",
-      phone: "+39 06 1234567",
-      address: "Via Roma 20, Rome, Italy",
-      email: "support@italiashipping.it"
+      name: "Laneige",
+      phone: "+1 (929) 330-9752",
+      address: "1407 Broadway, Suite 210, New York, NY 10018",
+      email: " uslaneigecollaboration@gmail.com"
     },
     receiver: {
-      name: "Olena Kovalenko",
-      phone: "+380 50 876 5432",
-      address: "Dniprovska St, 8, Kyiv, Ukraine, 02000",
-      email: "olena.k@example.com"
+      name: "Maria Garcia",
+      phone: "+1 (903) 372-8271",
+      address: "3205 duke Ave Big Spring TX 79720",
+      email: ""
     },
     shipment: {
-      weight: "3.5 kg",
-      courier: "ItalyFast",
+      weight: "5.6 kg",
+      courier: "NOVA",
       packages: "Box",
       mode: "Air",
-      product: "Gifts",
-      quantity: 3,
-      paymentMode: "Bank transfer",
-      totalFreight: "$120",
-      carrier: "Alitalia Cargo",
+      product: "Pr package",
+      quantity: 1,
+      paymentMode: "Zelle",
+      totalFreight: "$219",
+      carrier: "Air carrier (Nova445763222)",
       carrierRef: "IT55667788",
-      departureTime: "07:00",
-      origin: "Rome",
-      destination: "Kyiv",
-      pickupDate: "15, Aug 2025",
-      pickupTime: "05:00",
+      departureTime: "",
+      origin: "",
+      destination: "",
+      pickupDate: "",
+      pickupTime: "",
       status: "pending",
       comments: "Package prepared for shipment",
-      agentName: "Luca Rossi",
+      agentName: "",
       shipmentType: "Air"
     },
   }
 ];
+
 
 
 
