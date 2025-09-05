@@ -1,4 +1,4 @@
-// script.js (updated)
+// script.js (fixed + small safe improvements)
 // keeps your original style and inline CSS approach, plus tolerant status matching
 
 const el = sel => document.querySelector(sel);
@@ -59,15 +59,63 @@ function buildStepsHTML(lastStepIndex) {
 function renderSummary(s) {
   const container = el("#trackingResult") || el("#homeSummary");
   if (!container) return;
-  const currentStatus = s.shipment?.status || s.statusTimeline[s.statusTimeline.length - 1] || "";
+  const currentStatus = s.shipment?.status || (Array.isArray(s.statusTimeline) && s.statusTimeline.length ? s.statusTimeline[s.statusTimeline.length - 1] : "") || "";
   const lastStepIndex = Math.max(0, mapStatusToStepIndex(currentStatus));
   const stepsHTML = buildStepsHTML(lastStepIndex);
 
+  const prettyStatus = String(currentStatus || "").charAt(0).toUpperCase() + String(currentStatus || "").slice(1);
+
   container.innerHTML = `
     <div class="statusbar mb-3">${stepsHTML}</div>
-    <p class="muted">Tracking <span class="code text-primary">${s.trackingCode}</span> for <strong>${s.shipper.name} → ${s.receiver.name}</strong></p>
-    <p><strong>Current status:</strong> ${String(currentStatus).charAt(0).toUpperCase() + String(currentStatus).slice(1)}</p>
+    <p class="muted">Tracking <span class="code text-primary">${escapeHtml(s.trackingCode)}</span> for <strong>${escapeHtml(s.shipper?.name || '')} → ${escapeHtml(s.receiver?.name || '')}</strong></p>
+    <p><strong>Current status:</strong> ${escapeHtml(prettyStatus)}</p>
   `;
+}
+
+/* Small helpers (kept local & minimal) */
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function formatValue(key, value) {
+  if (value === null || value === undefined || value === '') return 'Not provided';
+  const k = String(key).toLowerCase();
+
+  // weight -> show "5 kg" if numeric
+  if (k.includes('weight')) {
+    const numeric = parseFloat(String(value).replace(/[^\d.-]/g, ''));
+    if (!isNaN(numeric)) return `${numeric} kg`;
+    return String(value);
+  }
+
+  // numeric-ish fields: packages, quantity
+  if (k.includes('quantity') || k.includes('packages')) {
+    const n = parseInt(value, 10);
+    return isNaN(n) ? String(value) : String(n);
+  }
+
+  // money / freight
+  if (k.includes('freight') || k.includes('total') || k.includes('price') || k.includes('amount')) {
+    const s = String(value);
+    if (s.match(/[$¢£¥€]/)) return s;
+    const numeric = parseFloat(s.replace(/[^\d.-]/g, ''));
+    return isNaN(numeric) ? s : `$${numeric}`;
+  }
+
+  // try basic date formatting for ISO-ish strings
+  if (k.includes('date') || k.includes('time')) {
+    const d = new Date(value);
+    if (!isNaN(d)) return d.toLocaleString();
+    return String(value);
+  }
+
+  return String(value);
 }
 
 function renderDetailPanel(s, singleColumn = false) {
@@ -122,6 +170,26 @@ function renderDetailPanel(s, singleColumn = false) {
     ]]
   ];
 
+  // Build HTML for the table (keeps your singleColumn toggle)
+  let html = `<table style="width:100%; border-collapse:collapse; font-family:inherit;">`;
+  sections.forEach(([title, rows]) => {
+    html += `<tr><th colspan="2" style="text-align:left; background:#f3f4f6; padding:8px; border-top:1px solid #e2e8f0;">${escapeHtml(title)}</th></tr>`;
+    rows.forEach(([label, rawVal]) => {
+      const formatted = formatValue(label, rawVal);
+      if (singleColumn) {
+        html += `<tr><td colspan="2" style="padding:8px; border-bottom:1px solid #eee;">${escapeHtml(label)} - ${escapeHtml(formatted)}</td></tr>`;
+      } else {
+        html += `<tr>
+          <td style="width:35%; padding:8px; border-bottom:1px solid #eee; font-weight:600;" data-label="${escapeHtml(label)}">${escapeHtml(label)}</td>
+          <td style="width:65%; padding:8px; border-bottom:1px solid #eee;" data-label="${escapeHtml(label)}">${escapeHtml(formatted)}</td>
+        </tr>`;
+      }
+    });
+  });
+  html += `</table>`;
+
+  body.innerHTML = html;
+}
 
 // Clear displays and hide panel
 function clearDisplay(message) {
@@ -146,9 +214,10 @@ function performTrack(code) {
     return;
   }
 
-  const shipment = deliveries.find(s => s.trackingCode === code);
+  // case-insensitive lookup (small improvement)
+  const shipment = deliveries.find(s => String(s.trackingCode || '').toLowerCase() === String(code || '').toLowerCase());
   if (!shipment) {
-    clearDisplay(`<p style="color:red">Tracking code "${code}" not found.</p>`);
+    clearDisplay(`<p style="color:red">Tracking code "${escapeHtml(code)}" not found.</p>`);
     return;
   }
 
