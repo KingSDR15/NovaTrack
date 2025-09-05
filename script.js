@@ -70,47 +70,58 @@ function renderSummary(s) {
   `;
 }
 
-// Render full detail panel and show it
-function renderDetailPanel(s) {
-  const panel = el("#track-panel");
-  const body = el("#trackBody");
+function renderDetailPanel(s, singleColumn = false) {
+  const panel = document.querySelector('#track-panel');
+  const body = document.querySelector('#trackBody');
   if (!panel || !body) return;
-  panel.style.display = "block";
 
-  // combine pickupDate + pickupTime if present
-  const pickupDisplay = s.shipment.pickupDate && s.shipment.pickupTime
+  panel.style.display = 'block';
+
+  const pickupDisplay = s?.shipment?.pickupDate && s?.shipment?.pickupTime
     ? `${s.shipment.pickupDate} - ${s.shipment.pickupTime}`
-    : (s.shipment.pickup || "N/A");
+    : (s?.shipment?.pickup || 'N/A');
 
-  body.innerHTML = `
-    <table>
-      <tr><th colspan="2">Information ID</th></tr>
-      <tr>
-        <td data-label="Code">${s.trackingCode}</td>
-      <tr><td data-label="Estimated Delivery">${s.estimatedDelivery || ''}</td><td data-label="Customs">${s.customs || ''}</td></tr>
+  // Define sections and their rows as [label, valueExpression]
+  const sections = [
+    ['Information ID', [
+      ['Code', s?.trackingCode],
+      ['Estimated Delivery', s?.estimatedDelivery || ''],
+      ['Customs', s?.customs || '']
+    ]],
+    ['Shipper Information', [
+      ['Name', s?.shipper?.name],
+      ['Phone', s?.shipper?.phone || ''],
+      ['Address', s?.shipper?.address || ''],
+      ['Email', s?.shipper?.email || '']
+    ]],
+    ['Receiver Information', [
+      ['Name', s?.receiver?.name],
+      ['Phone', s?.receiver?.phone || 'Not provided'],
+      ['Address', s?.receiver?.address || ''],
+      ['Email', s?.receiver?.email || 'Not provided']
+    ]],
+    ['Shipment Details', [
+      ['Weight', s?.shipment?.weight],
+      ['Courier', s?.shipment?.courier],
+      ['Packages', s?.shipment?.packages],
+      ['Mode', s?.shipment?.mode],
+      ['Product', s?.shipment?.product],
+      ['Quantity', s?.shipment?.quantity],
+      ['Payment Mode', s?.shipment?.paymentMode],
+      ['Total Freight', s?.shipment?.totalFreight],
+      ['Carrier', s?.shipment?.carrier],
+      ['Carrier Ref', s?.shipment?.carrierRef],
+      ['Departure Time', s?.shipment?.departureTime],
+      ['Origin', s?.shipment?.origin],
+      ['Destination', s?.shipment?.destination],
+      ['Pickup Date & Time', pickupDisplay],
+      ['Status', s?.shipment?.status],
+      ['Comments', s?.shipment?.comments],
+      ['Agent Name', s?.shipment?.agentName],
+      ['Shipment Type', s?.shipment?.shipmentType]
+    ]]
+  ];
 
-      <tr><th colspan="2">Shipper Information</th></tr>
-      <tr><td data-label="Name">${s.shipper.name}</td><td data-label="Phone">${s.shipper.phone || ''}</td></tr>
-      <tr><td data-label="Address" colspan="2">${s.shipper.address || ''}</td></tr>
-      <tr><td data-label="Email" colspan="2">${s.shipper.email || ''}</td></tr>
-
-      <tr><th colspan="2">Receiver Information</th></tr>
-      <tr><td data-label="Name">${s.receiver.name}</td><td data-label="Phone">${s.receiver.phone || 'Not provided'}</td></tr>
-      <tr><td data-label="Address" colspan="2">${s.receiver.address || ''}</td></tr>
-
-      <tr><th colspan="2">Shipment Details</th></tr>
-      <tr><td data-label="Weight">${s.shipment.weight}</td><td data-label="Courier">${s.shipment.courier}</td></tr>
-      <tr><td data-label="Packages">${s.shipment.packages}</td><td data-label="Mode">${s.shipment.mode}</td></tr>
-      <tr><td data-label="Product">${s.shipment.product}</td><td data-label="Quantity">${s.shipment.quantity}</td></tr>
-      <tr><td data-label="Payment Mode">${s.shipment.paymentMode}</td><td data-label="Total Freight">${s.shipment.totalFreight}</td></tr>
-      <tr><td data-label="Carrier">${s.shipment.carrier}</td><td data-label="Carrier Ref">${s.shipment.carrierRef}</td></tr>
-      <tr><td data-label="Departure Time">${s.shipment.departureTime}</td><td data-label="Origin">${s.shipment.origin}</td></tr>
-      <tr><td data-label="Destination">${s.shipment.destination}</td><td data-label="Pickup Date & Time">${pickupDisplay}</td></tr>
-      <tr><td data-label="Status">${s.shipment.status}</td><td data-label="Comments">${s.shipment.comments}</td></tr>
-      <tr><td data-label="Agent Name">${s.shipment.agentName}</td><td data-label="Shipment Type">${s.shipment.shipmentType}</td></tr>
-    </table>
-  `;
-}
 
 // Clear displays and hide panel
 function clearDisplay(message) {
