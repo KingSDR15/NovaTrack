@@ -255,3 +255,49 @@ button:focus, input:focus, a:focus { outline: 3px solid rgba(106,166,255,0.12); 
 
 /* Small niceties */
 .muted { color:var(--muted); font-size:.95rem; }
+
+
+
+
+
+
+
+/* Basic styling — tweak as needed */
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: system-ui, Arial, sans-serif;
+  margin: 8px 0;
+}
+.detail-table th {
+  text-align: left;
+  background: #f3f4f6;
+  padding: 8px;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+.detail-table td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+  font-size: 0.95rem;
+}
+.detail-table tr.section-head th {
+  background: #eef2ff;
+  font-weight: 700;
+  font-size: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+.detail-key {
+  width: 35%;
+  color: #374151;
+  font-weight: 600;
+}
+.detail-val {
+  width: 65%;
+  color: #111827;
+}
+@media (max-width: 600px) {
+  .detail-key { display: block; width: 100%; font-weight: 700; }
+  .detail-val { display: block; width: 100%; }
+}
